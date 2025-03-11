@@ -1,0 +1,23 @@
+Total Payment Calculation (TMP):
+	Loan Amount * ((i* (1  + i)^n) / ((1 + i)^n - 1))
+
+	Where:
+		i = Monthly Interest Payment
+		n = Number of Payments
+	
+	To Calculate i:
+		Take APR and divide by 12 (Months)
+
+
+Principal Payment:
+	TMP - ( OLB * (Interest Rate(APR) / 12) )
+
+
+
+
+Vars:
+	Loan Amount
+	APR (Yearly Interest)
+	Monthly Interest
+	Number of Payments
+	Outstanding Loan Balance (OLB)
