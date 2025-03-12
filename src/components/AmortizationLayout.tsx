@@ -1,5 +1,6 @@
 import { useState } from "react"
 import Decimal from "decimal.js"
+import { NumberFormatValues, NumericFormat } from "react-number-format"
 
 //@TODO: Need to break this down. It's alot to grok.
 type Period = {
@@ -71,16 +72,16 @@ function AmortizationLayout() {
 	const [term, setTerm] = useState<number>()
 	const [periods, setPeriods] = useState<Period[]>([])
 
-	const handleLoanAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setLoanAmount(+event.target.value)
+	const handleLoanAmountChange = (values: NumberFormatValues) => {
+		setLoanAmount(values.floatValue)
 	}
 
-	const handleRateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setRate(+event.target.value)
+	const handleRateChange = (values: NumberFormatValues) => {
+		setRate(values.floatValue)
 	}
 
-	const handleTermChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setTerm(+event.target.value)
+	const handleTermChange = (values: NumberFormatValues) => {
+		setTerm(values.floatValue)
 	}
 
 	const handleSubmit = (event: React.FormEvent) => {
@@ -102,13 +103,16 @@ function AmortizationLayout() {
 								Loan Amount:
 							</label>
 							<div className="mt-2">
-								<input
+								<NumericFormat
 									id="loan-amount"
 									name="loan-amount"
-									type="number"
+									thousandSeparator={true}
+									prefix={"$"}
+									displayType="input"
+									placeholder="Enter Amount"
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 									value={loanAmount}
-									onChange={handleLoanAmountChange}
+									onValueChange={handleLoanAmountChange}
 								/>
 							</div>
 						</div>
@@ -118,13 +122,16 @@ function AmortizationLayout() {
 								Loan APR (%):
 							</label>
 							<div className="mt-2">
-								<input
+								<NumericFormat
 									id="loan-apr"
 									name="loan-apr"
-									type="number"
+									suffix="%"
+									displayType="input"
+									placeholder="Enter APR %"
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 									value={rate}
-									onChange={handleRateChange}
+									step="0.01"
+									onValueChange={handleRateChange}
 								/>
 							</div>
 						</div>
@@ -134,14 +141,14 @@ function AmortizationLayout() {
 								Loan Term (Years):
 							</label>
 							<div className="mt-2">
-								<input
+								<NumericFormat
 									id="loan-term"
 									name="loan-term"
-									type="number"
-									step="0.01"
+									displayType="input"
+									placeholder="Enter Loan Term in Years"
 									className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 									value={term}
-									onChange={handleTermChange}
+									onValueChange={handleTermChange}
 								/>
 							</div>
 						</div>
@@ -172,10 +179,10 @@ function AmortizationLayout() {
 					{periods.map((period) => (
 						<tr className="border-b border-neutral-200" key={period.period}>
 							<td className="px-6 py-2">{period.period}</td>
-							<td className="px-6 py-2">{period.paymentDue ? period.paymentDue.toDP(2).toNumber() : ''}</td>
-							<td className="px-6 py-2">{period.interestDue ? period.interestDue.toDP(2).toNumber() : ''}</td>
-							<td className="px-6 py-2">{period.principalDue ? period.principalDue.toDP(2).toNumber() : ''}</td>
-							<td className="px-6 py-2">{period.remainingBalance ? period.remainingBalance.toDP(2).toNumber() : ''}</td>
+							<td className="px-6 py-2"><NumericFormat value={period.paymentDue ? period.paymentDue.toDP(2).toNumber() : ''} displayType="text" prefix="$" thousandSeparator /></td>
+							<td className="px-6 py-2"><NumericFormat value={period.interestDue ? period.interestDue.toDP(2).toNumber() : ''} displayType="text" prefix="$" thousandSeparator /></td>
+							<td className="px-6 py-2"><NumericFormat value={period.principalDue ? period.principalDue.toDP(2).toNumber() : ''} displayType="text" prefix="$" thousandSeparator /></td>
+							<td className="px-6 py-2"><NumericFormat value={period.remainingBalance ? period.remainingBalance.toDP(2).toNumber() : ''} displayType="text" prefix="$" thousandSeparator /></td>
 						</tr>
 					))}
 				</tbody>
