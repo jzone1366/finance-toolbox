@@ -1,5 +1,5 @@
 import './App.css'
-import AmortizationLayout from './components/AmortizationLayout'
+import AmortizationLayout from './components/Amortization/AmortizationLayout'
 
 function App() {
   return (

@@ -1,10 +1,10 @@
 import { useState } from "react"
 import Decimal from "decimal.js"
-import { NumberFormatValues, NumericFormat } from "react-number-format"
+import { NumberFormatValues } from "react-number-format"
 import AmortizationForm from "./AmortizationForm"
 import AmortizationTable from "./AmortizationTable"
+import { calculateInterest, calculateMonthlyRate, calculateTotalPayment } from "./utility_functions"
 
-//@TODO: Need to break this down. It's alot to grok.
 export type Period = {
 	period: number,
 	paymentDue?: Decimal | undefined,
@@ -12,27 +12,6 @@ export type Period = {
 	principalDue?: Decimal | undefined,
 	remainingBalance: Decimal,
 }
-
-// Functions below this point are utilities ------
-function calculateMonthlyRate(rate: Decimal): Decimal {
-	return Decimal.div(rate, 12)
-}
-
-function calculateInterest(monthlyRate: Decimal, balance: Decimal): Decimal {
-	return balance.times(monthlyRate)
-}
-
-function calculateTotalPayment(rate: Decimal, numberOfPayments: number, loanAmount: Decimal) {
-	const monthInterest = calculateMonthlyRate(rate)
-
-	const numerator = monthInterest.times(Decimal.pow(Decimal.add(1, monthInterest), numberOfPayments))
-	const denominator = Decimal.sub(Decimal.pow(Decimal.add(1, monthInterest), numberOfPayments), 1)
-
-	const calculation = loanAmount.times(Decimal.div(numerator, denominator))
-
-	return calculation
-}
-// End Utility function
 
 function buildAmortizationTable(loanAmount: number, apr: number, loanTerm: number) {
 	const amount = new Decimal(loanAmount)
