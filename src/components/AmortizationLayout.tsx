@@ -11,6 +11,7 @@ type Period = {
 	remainingBalance: Decimal,
 }
 
+// Functions below this point are utilities ------
 function calculateMonthlyRate(rate: Decimal): Decimal {
 	return Decimal.div(rate, 12)
 }
@@ -29,6 +30,7 @@ function calculateTotalPayment(rate: Decimal, numberOfPayments: number, loanAmou
 
 	return calculation
 }
+// End Utility function
 
 function buildAmortizationTable(loanAmount: number, apr: number, loanTerm: number) {
 	const amount = new Decimal(loanAmount)
@@ -93,7 +95,7 @@ function AmortizationLayout() {
 
 	return (
 		<>
-			<h1 className="text-xl">Amortization Schedule</h1>
+			<h1 className="text-xl mb-6">Amortization Schedule</h1>
 
 			<form onSubmit={handleSubmit}>
 				<div className="border rounded-sm border-neutral-400 p-3">
