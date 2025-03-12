@@ -4,7 +4,7 @@ import AmortizationLayout from './components/AmortizationLayout'
 function App() {
   return (
     <>
-      <div className="container flex flex-col items-center justify-center">
+      <div className="flex p-8 flex-col items-center justify-center">
         <AmortizationLayout />
       </div>
     </>
