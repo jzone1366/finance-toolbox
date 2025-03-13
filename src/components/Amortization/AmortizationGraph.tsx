@@ -7,6 +7,10 @@ interface AmortizationGraphProps {
 
 }
 const AmortizationGraph: React.FC<AmortizationGraphProps> = React.memo(({ periods }) => {
+	if (periods.length < 1) {
+		return null
+	}
+
 	const graphData = periods.map((period) => {
 		return {
 			period: period.period,
@@ -15,8 +19,6 @@ const AmortizationGraph: React.FC<AmortizationGraphProps> = React.memo(({ period
 			total: period.remainingBalance ? period.remainingBalance.toDP(2).toNumber() : 0,
 		}
 	})
-
-	console.log(graphData)
 
 	return (
 		<div className="w-full">

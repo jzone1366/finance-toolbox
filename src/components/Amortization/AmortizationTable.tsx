@@ -6,6 +6,10 @@ interface AmortizationTableProps {
 }
 
 const AmortizationTable: React.FC<AmortizationTableProps> = ({ periods }) => {
+	if (periods.length < 1) {
+		return null
+	}
+
 	return (
 		<table className="min-w-full table-auto text-left text-sm font-light text-surface ">
 			<thead className="border-b border-neutral-200 font-medium ">
