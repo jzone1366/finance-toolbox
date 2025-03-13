@@ -30,19 +30,21 @@ const AmortizationStats: React.FC<AmortizationStatsProps> = React.memo(({ period
 				<div className="flex flex-col px-6 py-2 bg-white shadow rounded-lg">
 					<div className="flex flex-col items-center space-y-2">
 						<NumericFormat className="text-2xl font-bold tracking-tight leading-none text-indigo-600" value={totalInterestPaid.toDP(2).toNumber()} displayType="text" prefix="$" thousandSeparator />
-						<div className="text-base font-medium text-indigo-600">Interest Paid</div>
+						<div className="text-xs font-medium">Interest Paid</div>
 					</div>
 				</div>
+
 				<div className="flex flex-col px-6 py-2 bg-white shadow rounded-lg">
 					<div className="flex flex-col items-center space-y-2">
 						<NumericFormat className="text-2xl font-bold tracking-tight leading-none text-indigo-600" value={totalPrincipalPaid.toDP(2).toNumber()} displayType="text" prefix="$" thousandSeparator />
-						<div className="text-base font-medium text-indigo-600">Principal Paid</div>
+						<div className="text-xs font-medium">Principal Paid</div>
 					</div>
 				</div>
+
 				<div className="flex flex-col px-6 py-2 bg-white shadow rounded-lg">
 					<div className="flex flex-col items-center space-y-2">
 						<NumericFormat className="text-2xl font-bold tracking-tight leading-none text-indigo-600" value={totalAmountPaid.toDP(2).toNumber()} displayType="text" prefix="$" thousandSeparator />
-						<div className="text-base font-medium text-indigo-600">Total Paid</div>
+						<div className="text-xs font-medium">Total Paid</div>
 					</div>
 				</div>
 			</div>
