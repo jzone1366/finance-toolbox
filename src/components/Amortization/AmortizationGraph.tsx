@@ -10,9 +10,9 @@ const AmortizationGraph: React.FC<AmortizationGraphProps> = React.memo(({ period
 	const graphData = periods.map((period) => {
 		return {
 			period: period.period,
-			interestDue: period.interestDue ? period.interestDue.toDP(2).toNumber() : null,
-			principalDue: period.principalDue ? period.principalDue.toDP(2).toNumber() : null,
-			total: period.remainingBalance ? period.remainingBalance.toDP(2).toNumber() : null,
+			interestDue: period.interestDue ? period.interestDue.toDP(2).toNumber() : 0,
+			principalDue: period.principalDue ? period.principalDue.toDP(2).toNumber() : 0,
+			total: period.remainingBalance ? period.remainingBalance.toDP(2).toNumber() : 0,
 		}
 	})
 
