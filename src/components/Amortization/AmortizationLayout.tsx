@@ -4,6 +4,7 @@ import { NumberFormatValues } from "react-number-format"
 import AmortizationForm from "./AmortizationForm"
 import AmortizationTable from "./AmortizationTable"
 import { calculateInterest, calculateMonthlyRate, calculateTotalPayment } from "./utility_functions"
+import AmortizationStats from "./AmortizationStats"
 
 export type Period = {
 	period: number,
@@ -86,6 +87,10 @@ function AmortizationLayout() {
 				rate={rate}
 				handleRateChange={handleRateChange}
 				handleSubmit={handleSubmit}
+			/>
+
+			<AmortizationStats
+				periods={periods}
 			/>
 
 			<AmortizationTable

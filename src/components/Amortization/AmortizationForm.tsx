@@ -20,7 +20,7 @@ const AmortizationForm: React.FC<AmortizationFormProps> = ({
 	handleSubmit
 }) => {
 	return (
-		<form onSubmit={handleSubmit}>
+		<form onSubmit={handleSubmit} className="mb-6">
 			<div className="border rounded-sm border-neutral-400 p-3">
 				<div className="m-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-9">
 					<div className="sm:col-span-3">
@@ -84,7 +84,7 @@ const AmortizationForm: React.FC<AmortizationFormProps> = ({
 						type="submit"
 						className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 					>
-						submit
+						Submit
 					</button>
 				</div>
 			</div>
