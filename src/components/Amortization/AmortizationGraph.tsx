@@ -1,7 +1,9 @@
 import React from "react"
+import colors from 'tailwindcss/colors'
 import { Period } from "./AmortizationLayout"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
+console.log(colors)
 interface AmortizationGraphProps {
 	periods: Period[]
 
@@ -21,7 +23,7 @@ const AmortizationGraph: React.FC<AmortizationGraphProps> = React.memo(({ period
 	})
 
 	return (
-		<div className="w-full">
+		<div className="w-full bg-white mt-4 p-2 rounded-lg shadow">
 			<ResponsiveContainer height={300} width="100%">
 				<LineChart
 					data={graphData}
@@ -37,9 +39,9 @@ const AmortizationGraph: React.FC<AmortizationGraphProps> = React.memo(({ period
 					<YAxis />
 					<Tooltip />
 					<Legend />
-					<Line type="monotone" dataKey="interestDue" stroke="#8884d8" />
-					<Line type="monotone" dataKey="principalDue" stroke="#82ca9d" />
-					<Line type="monotone" dataKey="total" stroke="blue" />
+					<Line type="monotone" dataKey="interestDue" stroke={colors.purple[600]} />
+					<Line type="monotone" dataKey="principalDue" stroke={colors.green[600]} />
+					<Line type="monotone" dataKey="total" stroke={colors.sky[600]} />
 				</LineChart>
 			</ResponsiveContainer>
 		</div>
