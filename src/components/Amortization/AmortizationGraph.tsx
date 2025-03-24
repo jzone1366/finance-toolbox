@@ -39,9 +39,9 @@ const AmortizationGraph: React.FC<AmortizationGraphProps> = React.memo(({ period
 					<YAxis />
 					<Tooltip />
 					<Legend />
-					<Line type="monotone" dataKey="interestDue" stroke={colors.purple[600]} />
-					<Line type="monotone" dataKey="principalDue" stroke={colors.green[600]} />
-					<Line type="monotone" dataKey="total" stroke={colors.sky[600]} />
+					<Line type="monotone" dataKey="principalDue" stroke={colors.indigo[900]} />
+					<Line type="monotone" dataKey="interestDue" stroke={colors.indigo[600]} />
+					<Line type="monotone" dataKey="total" stroke={colors.indigo[300]} />
 				</LineChart>
 			</ResponsiveContainer>
 		</div>

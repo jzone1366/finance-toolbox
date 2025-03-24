@@ -6,7 +6,6 @@ import AmortizationTable from "./AmortizationTable"
 import { calculateInterest, calculateMonthlyRate, calculateTotalPayment } from "./utility_functions"
 import AmortizationStats from "./AmortizationStats"
 import AmortizationGraph from "./AmortizationGraph"
-import AmortizationPieChart from "./AmortizationPieChart"
 
 export type Period = {
 	period: number,
@@ -92,10 +91,6 @@ function AmortizationLayout() {
 			/>
 
 			<AmortizationStats
-				periods={periods}
-			/>
-
-			<AmortizationPieChart
 				periods={periods}
 			/>
 
