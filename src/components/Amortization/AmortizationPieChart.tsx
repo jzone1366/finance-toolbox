@@ -1,9 +1,10 @@
 
-import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip, Legend, Sector } from "recharts"
-import React, { useMemo } from "react"
+import { Cell, Pie, PieChart, ResponsiveContainer, Legend, Sector } from "recharts"
+import React, { JSX, useMemo } from "react"
 import { Decimal } from "decimal.js"
-import { NumericFormat } from "react-number-format"
 import { Period } from "./AmortizationLayout"
+import colors from 'tailwindcss/colors'
+import { PieSectorDataItem } from "recharts/types/polar/Pie"
 
 interface AmortizationPieChartProps {
   periods: Period[]
@@ -24,7 +25,10 @@ const AmortizationPieChart: React.FC<AmortizationPieChartProps> = React.memo(({ 
 
   const totalAmountPaid: Decimal = totalPrincipalPaid.plus(totalInterestPaid)
 
-  const initialLoanAmount: Decimal = new Decimal(periods.length > 0 ? periods[0].remainingBalance.plus(totalAmountPaid) : 0)
+  const initialLoanAmount: Decimal = useMemo(
+    () => new Decimal(periods.length > 0 ? periods[0].remainingBalance.plus(totalAmountPaid) : 0),
+    [periods, totalAmountPaid]
+  )
 
   const remainingBalance: Decimal = useMemo(() => initialLoanAmount.minus(totalAmountPaid), [initialLoanAmount, totalAmountPaid])
 
@@ -44,18 +48,30 @@ const AmortizationPieChart: React.FC<AmortizationPieChartProps> = React.memo(({ 
 
   // Data for Donut Chart with consistent colors
   const data = [
-    { name: "Principal Paid", value: totalPrincipalPaid.toNumber(), color: "#4D55CC" },
-    { name: "Interest Paid", value: totalInterestPaid.toNumber(), color: "#7A73D1" },
-    { name: "Remaining Balance", value: remainingBalance.toNumber(), color: "#B5A8D5" },
+    { name: "Principal Paid", value: totalPrincipalPaid.toNumber(), color: colors.indigo[900] },
+    { name: "Interest Paid", value: totalInterestPaid.toNumber(), color: colors.indigo[600] },
+    { name: "Remaining Balance", value: remainingBalance.toNumber(), color: colors.indigo[300] },
   ]
-  
-  // Calculate percentages
-  const total = data.reduce((sum, entry) => sum + entry.value, 0);
-  
+
   // Enhanced active sector rendering for professional look
-  const renderActiveShape = (props: any) => {
-    const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } = props;
-    
+  const renderActiveShape = (props: PieSectorDataItem): JSX.Element => {
+    const {
+      cx = 0,
+      cy = 0,
+      innerRadius,
+      outerRadius = 0,
+      startAngle,
+      endAngle,
+      fill,
+      payload,
+      percent,
+      value
+    } = props as PieSectorDataItem & {
+      payload: { name: string; value: number };
+      percent: number;
+      value: number;
+    };
+
     return (
       <g>
         <text x={cx} y={cy - 15} dy={8} textAnchor="middle" fill="#333" className="text-lg font-semibold">
@@ -88,16 +104,13 @@ const AmortizationPieChart: React.FC<AmortizationPieChartProps> = React.memo(({ 
       </g>
     );
   };
-  
-  const onPieEnter = (_: any, index: number) => {
+
+  const onPieEnter = (_: React.MouseEvent, index: number) => {
     setActiveIndex(index);
   };
 
   return (
     <div className="min-w-full bg-white rounded-lg shadow">
-
-
-      {/* Donut Chart Section */}
       <div className="flex flex-col items-center justify-center w-full p-4">
         <ResponsiveContainer width="100%" height={350}>
           <PieChart>
@@ -107,7 +120,7 @@ const AmortizationPieChart: React.FC<AmortizationPieChartProps> = React.memo(({ 
               cy="50%"
               innerRadius={80}
               outerRadius={120}
-              fill="#8884d8"
+              fill={colors.indigo[900]}
               dataKey="value"
               activeIndex={activeIndex}
               activeShape={renderActiveShape}
@@ -117,30 +130,21 @@ const AmortizationPieChart: React.FC<AmortizationPieChartProps> = React.memo(({ 
                 <Cell key={`cell-${index}`} fill={entry.color} />
               ))}
             </Pie>
-            <Tooltip 
-              formatter={(value: any) => formatCurrency(value)}
-              labelFormatter={(name) => `${name}`}
-            />
-            <Legend 
-              layout="horizontal" 
-              verticalAlign="bottom" 
-              align="center" 
-              wrapperStyle={{ 
-                fontSize: "14px", 
-                fontWeight: "bold", 
-                marginTop: "10px", 
-                display: "flex", 
-                flexWrap: "wrap", 
-                justifyContent: "center" 
-              }} 
+            <Legend
+              layout="horizontal"
+              verticalAlign="bottom"
+              align="center"
+              wrapperStyle={{
+                fontSize: "14px",
+                fontWeight: "bold",
+                marginTop: "10px",
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center"
+              }}
             />
           </PieChart>
         </ResponsiveContainer>
-        
-        {/* Summary text below chart */}
-        <div className="text-center text-sm text-gray-600 mt-2">
-          {`Total Loan Amount: ${formatCurrency(total)}`}
-        </div>
       </div>
     </div>
   )
