@@ -103,12 +103,19 @@ function AmortizationLayout() {
 		event.preventDefault()
 		if (loanAmount && rate && term) {
 			const standardScenario = buildAmortizationTable(loanAmount, rate, term, 0)
-			const extraPaymentScenario = buildAmortizationTable(loanAmount, rate, term, extraPayment ?? 0)
+			const hasExtraPayment = extraPayment && extraPayment > 0
 			
-			setScenarios([
-				{ periods: standardScenario, label: "Standard Payment" },
-				{ periods: extraPaymentScenario, label: "With Extra Payment" }
-			])
+			if (hasExtraPayment) {
+				const extraPaymentScenario = buildAmortizationTable(loanAmount, rate, term, extraPayment)
+				setScenarios([
+					{ periods: standardScenario, label: "Standard Payment" },
+					{ periods: extraPaymentScenario, label: "With Extra Payment" }
+				])
+			} else {
+				setScenarios([
+					{ periods: standardScenario, label: "Standard Payment" }
+				])
+			}
 		}
 	}
 
@@ -130,13 +137,13 @@ function AmortizationLayout() {
 
 			{scenarios.length > 0 && (
 				<>
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+					<div className={`grid grid-cols-1 ${scenarios.length > 1 ? 'md:grid-cols-2' : ''} gap-6`}>
 						{scenarios.map((scenario, index) => (
 							<div key={index} className="space-y-4">
 								<h2 className="text-lg font-semibold">{scenario.label}</h2>
 								<AmortizationStats
 									periods={scenario.periods}
-									scenarios={scenarios}
+									scenarios={scenarios.length > 1 ? scenarios : undefined}
 								/>
 								<AmortizationPieChart
 									periods={scenario.periods}

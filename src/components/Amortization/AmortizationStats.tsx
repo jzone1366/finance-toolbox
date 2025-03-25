@@ -21,7 +21,7 @@ const AmortizationStats: React.FC<AmortizationStatsProps> = React.memo(({ period
 
 	const totalAmountPaid: Decimal = totalPrincipalPaid.plus(totalInterestPaid)
 
-	// Calculate difference between scenarios
+	// Calculate difference between scenarios only if we have both scenarios
 	const comparison = useMemo(() => {
 		if (!scenarios || scenarios.length !== 2) return null
 
@@ -81,11 +81,11 @@ const AmortizationStats: React.FC<AmortizationStatsProps> = React.memo(({ period
 
 	return (
 		<div>
-			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full min-w-0 mb-6">
+			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full min-w-0 mb-4">
 				{/* Interest Paid */}
-				<div className="flex flex-col items-center px-6 py-2 bg-white shadow rounded-lg">
+				<div className="flex flex-col items-center px-3 py-2 bg-white shadow rounded-lg">
 					<NumericFormat
-						className="text-2xl font-bold text-indigo-600"
+						className="text-xl font-bold text-indigo-600 truncate"
 						value={totalInterestPaid.toDP(2).toNumber()}
 						displayType="text"
 						prefix="$"
@@ -94,9 +94,9 @@ const AmortizationStats: React.FC<AmortizationStatsProps> = React.memo(({ period
 					<div className="text-sm font-medium">Interest Paid</div>
 				</div>
 
-				<div className="flex flex-col items-center px-6 py-2 bg-white shadow rounded-lg">
+				<div className="flex flex-col items-center px-3 py-2 bg-white shadow rounded-lg">
 					<NumericFormat
-						className="text-2xl font-bold text-indigo-600"
+						className="text-xl font-bold text-indigo-600 truncate"
 						value={totalPrincipalPaid.toDP(2).toNumber()}
 						displayType="text"
 						prefix="$"
@@ -105,9 +105,9 @@ const AmortizationStats: React.FC<AmortizationStatsProps> = React.memo(({ period
 					<div className="text-sm font-medium">Principal Paid</div>
 				</div>
 
-				<div className="flex flex-col items-center px-6 py-2 bg-white shadow rounded-lg">
+				<div className="flex flex-col items-center px-3 py-2 bg-white shadow rounded-lg">
 					<NumericFormat
-						className="text-2xl font-bold text-indigo-600"
+						className="text-xl font-bold text-indigo-600 truncate"
 						value={totalAmountPaid.toDP(2).toNumber()}
 						displayType="text"
 						prefix="$"
@@ -117,11 +117,12 @@ const AmortizationStats: React.FC<AmortizationStatsProps> = React.memo(({ period
 				</div>
 			</div>
 
+			{/* Only show comparison stats when we have two scenarios */}
 			{comparison && (
-				<div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full min-w-0 mb-6">
-					<div className={`flex flex-col items-center px-6 py-2 shadow rounded-lg ${comparison.bgColorClass}`}>
+				<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full min-w-0 mb-4">
+					<div className={`flex flex-col items-center px-3 py-2 shadow rounded-lg ${comparison.bgColorClass}`}>
 						<NumericFormat
-							className={`text-2xl font-bold ${comparison.colorClass}`}
+							className={`text-xl font-bold truncate ${comparison.colorClass}`}
 							value={comparison.value1.toDP(2).toNumber()}
 							displayType="text"
 							prefix="$"
@@ -130,9 +131,9 @@ const AmortizationStats: React.FC<AmortizationStatsProps> = React.memo(({ period
 						<div className="text-sm font-medium">{comparison.title1}</div>
 					</div>
 
-					<div className={`flex flex-col items-center px-6 py-2 shadow rounded-lg ${comparison.bgColorClass}`}>
+					<div className={`flex flex-col items-center px-3 py-2 shadow rounded-lg ${comparison.bgColorClass}`}>
 						<NumericFormat
-							className={`text-2xl font-bold ${comparison.colorClass}`}
+							className={`text-xl font-bold truncate ${comparison.colorClass}`}
 							value={comparison.value2.toDP(2).toNumber()}
 							displayType="text"
 							prefix="$"
