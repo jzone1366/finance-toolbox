@@ -1,4 +1,3 @@
-
 import { Cell, Pie, PieChart, ResponsiveContainer, Legend, Sector } from "recharts"
 import React, { JSX, useMemo } from "react"
 import { Decimal } from "decimal.js"
@@ -8,9 +7,10 @@ import { PieSectorDataItem } from "recharts/types/polar/Pie"
 
 interface AmortizationPieChartProps {
   periods: Period[]
+  label: string
 }
 
-const AmortizationPieChart: React.FC<AmortizationPieChartProps> = React.memo(({ periods }) => {
+const AmortizationPieChart: React.FC<AmortizationPieChartProps> = React.memo(({ periods, label }) => {
   const [activeIndex, setActiveIndex] = React.useState(0);
 
   const totalPrincipalPaid: Decimal = useMemo(
@@ -112,6 +112,7 @@ const AmortizationPieChart: React.FC<AmortizationPieChartProps> = React.memo(({ 
   return (
     <div className="min-w-full bg-white rounded-lg shadow">
       <div className="flex flex-col items-center justify-center w-full p-4">
+        <h3 className="text-lg font-semibold mb-4">{label}</h3>
         <ResponsiveContainer width="100%" height={350}>
           <PieChart>
             <Pie

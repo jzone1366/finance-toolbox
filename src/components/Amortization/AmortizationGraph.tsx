@@ -6,9 +6,9 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 console.log(colors)
 interface AmortizationGraphProps {
 	periods: Period[]
-
+	label: string
 }
-const AmortizationGraph: React.FC<AmortizationGraphProps> = React.memo(({ periods }) => {
+const AmortizationGraph: React.FC<AmortizationGraphProps> = React.memo(({ periods, label }) => {
 	if (periods.length < 1) {
 		return null
 	}
@@ -39,9 +39,9 @@ const AmortizationGraph: React.FC<AmortizationGraphProps> = React.memo(({ period
 					<YAxis />
 					<Tooltip />
 					<Legend />
-					<Line type="monotone" dataKey="principalDue" stroke={colors.indigo[900]} />
-					<Line type="monotone" dataKey="interestDue" stroke={colors.indigo[600]} />
-					<Line type="monotone" dataKey="total" stroke={colors.indigo[300]} />
+					<Line type="monotone" dataKey="principalDue" stroke={colors.indigo[900]} name={`${label} - Principal`} />
+					<Line type="monotone" dataKey="interestDue" stroke={colors.indigo[600]} name={`${label} - Interest`} />
+					<Line type="monotone" dataKey="total" stroke={colors.indigo[300]} name={`${label} - Balance`} />
 				</LineChart>
 			</ResponsiveContainer>
 		</div>

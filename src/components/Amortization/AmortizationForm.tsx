@@ -8,15 +8,16 @@ interface AmortizationFormProps {
 	handleTermChange: (values: NumberFormatValues) => void;
 	rate?: number;
 	handleRateChange: (values: NumberFormatValues) => void;
+	extraPayment?: number;
+	handleExtraPaymentChange: (values: NumberFormatValues) => void;
 	handleSubmit: (event: React.FormEvent) => void;
 }
 
 const AmortizationForm: React.FC<AmortizationFormProps> = ({
-	amount,
-	handleAmountChange,
+	amount, handleAmountChange,
 	term, handleTermChange,
-	rate,
-	handleRateChange,
+	rate, handleRateChange,
+	extraPayment, handleExtraPaymentChange,
 	handleSubmit
 }) => {
 	return (
@@ -73,6 +74,23 @@ const AmortizationForm: React.FC<AmortizationFormProps> = ({
 							className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
 							value={term}
 							onValueChange={handleTermChange}
+						/>
+					</div>
+				</div>
+
+				<div className="sm:col-span-3">
+					<label htmlFor="loan-term" className="block text-sm/6 font-medium text-gray-900">
+						Extra Principal Payment:
+					</label>
+					<div className="mt-2">
+						<NumericFormat
+							id="loan-term"
+							name="loan-term"
+							displayType="input"
+							placeholder="Extra Principal Payment (Monthly)"
+							className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+							value={extraPayment}
+							onValueChange={handleExtraPaymentChange}
 						/>
 					</div>
 				</div>
