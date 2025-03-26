@@ -1,4 +1,5 @@
 import { Link, Outlet } from '@tanstack/react-router'
+import { FeatureFlag } from '../FeatureFlag'
 import { CalculatorIcon } from '@heroicons/react/24/outline'
 
 interface LinkClassProps {
@@ -18,9 +19,9 @@ export default function MainLayout() {
                 <CalculatorIcon className="h-8 w-8 text-indigo-600" />
               </div>
               <div className="ml-4">
-                <span className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-indigo-500">
+                <div className="text-xl font-semibold bg-gradient-to-r from-indigo-600 to-indigo-400 bg-clip-text text-transparent">
                   Finance Toolbelt
-                </span>
+                </div>
               </div>
             </div>
 
@@ -47,27 +48,29 @@ export default function MainLayout() {
                   </>
                 )}
               </Link>
-              <Link
-                to="/paycheck"
-                className={({ isActive }: LinkClassProps) =>
-                  `group relative px-6 py-2 text-sm font-medium transition-all duration-200 ${
-                    isActive
-                      ? 'text-indigo-600'
-                      : 'text-gray-600 hover:text-indigo-600'
-                  }`
-                }
-              >
-                {({ isActive }: LinkClassProps) => (
-                  <>
-                    <span>Paycheck Calculator</span>
-                    <span
-                      className={`absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-indigo-500/0 via-indigo-500/70 to-indigo-500/0 transition-opacity duration-500 ${
-                        isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-50'
-                      }`}
-                    />
-                  </>
-                )}
-              </Link>
+              <FeatureFlag flag="isPaycheckCalculatorEnabled">
+                <Link
+                  to="/paycheck"
+                  className={({ isActive }: LinkClassProps) =>
+                    `group relative px-6 py-2 text-sm font-medium transition-all duration-200 ${
+                      isActive
+                        ? 'text-indigo-600'
+                        : 'text-gray-600 hover:text-indigo-600'
+                    }`
+                  }
+                >
+                  {({ isActive }: LinkClassProps) => (
+                    <>
+                      <span>Paycheck Calculator</span>
+                      <span
+                        className={`absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-indigo-500/0 via-indigo-500/70 to-indigo-500/0 transition-opacity duration-500 ${
+                          isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-50'
+                        }`}
+                      />
+                    </>
+                  )}
+                </Link>
+              </FeatureFlag>
             </div>
           </div>
         </div>
@@ -87,18 +90,20 @@ export default function MainLayout() {
             >
               Loan Calculator
             </Link>
-            <Link
-              to="/paycheck"
-              className={({ isActive }: LinkClassProps) =>
-                `flex items-center py-3 text-sm font-medium transition-colors ${
-                  isActive
-                    ? 'text-indigo-600'
-                    : 'text-gray-600 hover:text-indigo-600'
-                }`
-              }
-            >
-              Paycheck Calculator
-            </Link>
+            <FeatureFlag flag="isPaycheckCalculatorEnabled">
+              <Link
+                to="/paycheck"
+                className={({ isActive }: LinkClassProps) =>
+                  `flex items-center py-3 text-sm font-medium transition-colors ${
+                    isActive
+                      ? 'text-indigo-600'
+                      : 'text-gray-600 hover:text-indigo-600'
+                  }`
+                }
+              >
+                Paycheck Calculator
+              </Link>
+            </FeatureFlag>
           </div>
         </div>
       </nav>
