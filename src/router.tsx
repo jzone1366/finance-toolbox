@@ -1,24 +1,24 @@
-import { 
-  Router, 
-  Route,
-  RootRoute,
-  RouterProvider,
+import {
+  createRootRoute,
+  createRoute,
+  createRouter,
 } from '@tanstack/react-router'
 import MainLayout from './components/Layout/MainLayout'
 import AmortizationLayout from './components/Amortization/AmortizationLayout'
 import PaycheckCalculator from './components/Paycheck/PaycheckCalculator'
+import NotFound from './components/NotFound'
 
-const rootRoute = new RootRoute({
+const rootRoute = createRootRoute({
   component: MainLayout,
 })
 
-const indexRoute = new Route({
+const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/',
   component: AmortizationLayout,
 })
 
-const paycheckRoute = new Route({
+const paycheckRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/paycheck',
   component: PaycheckCalculator,
@@ -26,7 +26,10 @@ const paycheckRoute = new Route({
 
 const routeTree = rootRoute.addChildren([indexRoute, paycheckRoute])
 
-const router = new Router({ routeTree })
+const router = createRouter({
+  routeTree,
+  defaultNotFoundComponent: NotFound
+})
 
 declare module '@tanstack/react-router' {
   interface Register {
