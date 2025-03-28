@@ -1,11 +1,12 @@
 import { Link, Outlet } from '@tanstack/react-router'
 import { CalculatorIcon } from '@heroicons/react/24/outline'
 
-interface LinkClassProps {
-  isActive: boolean
-}
-
 export default function MainLayout() {
+  const baseClassName = "px-6 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-gray-600 hover:bg-gray-50 hover:text-indigo-600"
+  const activeClassName = "px-6 py-2 text-sm font-medium rounded-lg transition-all duration-200 bg-indigo-50 text-indigo-600"
+  const mobileBaseClassName = "flex items-center py-3 px-4 text-sm font-medium rounded-lg transition-colors text-gray-600 hover:bg-gray-50 hover:text-indigo-600"
+  const mobileActiveClassName = "flex items-center py-3 px-4 text-sm font-medium rounded-lg transition-colors bg-indigo-50 text-indigo-600"
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navigation */}
@@ -28,45 +29,17 @@ export default function MainLayout() {
             <div className="hidden sm:flex sm:space-x-1">
               <Link
                 to="/"
-                className={({ isActive }: LinkClassProps) =>
-                  `group relative px-6 py-2 text-sm font-medium transition-all duration-200 ${
-                    isActive
-                      ? 'text-indigo-600'
-                      : 'text-gray-600 hover:text-indigo-600'
-                  }`
-                }
+                className={baseClassName}
+                activeProps={{ className: activeClassName }}
               >
-                {({ isActive }: LinkClassProps) => (
-                  <>
-                    <span>Loan Calculator</span>
-                    <span
-                      className={`absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-indigo-500/0 via-indigo-500/70 to-indigo-500/0 transition-opacity duration-500 ${
-                        isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-50'
-                      }`}
-                    />
-                  </>
-                )}
+                Loan Calculator
               </Link>
               <Link
                 to="/paycheck"
-                className={({ isActive }: LinkClassProps) =>
-                  `group relative px-6 py-2 text-sm font-medium transition-all duration-200 ${
-                    isActive
-                      ? 'text-indigo-600'
-                      : 'text-gray-600 hover:text-indigo-600'
-                  }`
-                }
+                className={baseClassName}
+                activeProps={{ className: activeClassName }}
               >
-                {({ isActive }: LinkClassProps) => (
-                  <>
-                    <span>Paycheck Calculator</span>
-                    <span
-                      className={`absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-indigo-500/0 via-indigo-500/70 to-indigo-500/0 transition-opacity duration-500 ${
-                        isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-50'
-                      }`}
-                    />
-                  </>
-                )}
+                Paycheck Calculator
               </Link>
             </div>
           </div>
@@ -77,25 +50,15 @@ export default function MainLayout() {
           <div className="space-y-1 px-4">
             <Link
               to="/"
-              className={({ isActive }: LinkClassProps) =>
-                `flex items-center py-3 text-sm font-medium transition-colors ${
-                  isActive
-                    ? 'text-indigo-600'
-                    : 'text-gray-600 hover:text-indigo-600'
-                }`
-              }
+              className={mobileBaseClassName}
+              activeProps={{ className: mobileActiveClassName }}
             >
               Loan Calculator
             </Link>
             <Link
               to="/paycheck"
-              className={({ isActive }: LinkClassProps) =>
-                `flex items-center py-3 text-sm font-medium transition-colors ${
-                  isActive
-                    ? 'text-indigo-600'
-                    : 'text-gray-600 hover:text-indigo-600'
-                }`
-              }
+              className={mobileBaseClassName}
+              activeProps={{ className: mobileActiveClassName }}
             >
               Paycheck Calculator
             </Link>
