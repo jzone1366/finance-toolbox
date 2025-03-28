@@ -85,10 +85,6 @@ const AmortizationStats: React.FC<AmortizationStatsProps> = React.memo(({ period
 		}
 	}, [scenarios, periods])
 
-	if (periods.length < 1) {
-		return null
-	}
-
 	return (
 		<div className="space-y-6 sm:space-y-8">
 			{/* Main Stats */}

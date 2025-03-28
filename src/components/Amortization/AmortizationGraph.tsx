@@ -3,7 +3,13 @@ import colors from 'tailwindcss/colors'
 import { Period } from "./AmortizationLayout"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
-console.log(colors)
+// Calculate interval based on number of periods
+const getInterval = (totalPeriods: number) => {
+	if (totalPeriods <= 60) return 6 // For <= 5 years, show every 6 months
+	if (totalPeriods <= 180) return 12 // For <= 15 years, show yearly
+	return 24 // For > 15 years, show every 2 years
+}
+
 interface AmortizationGraphProps {
 	periods: Period[]
 	label: string
@@ -11,13 +17,6 @@ interface AmortizationGraphProps {
 const AmortizationGraph: React.FC<AmortizationGraphProps> = React.memo(({ periods, label }) => {
 	if (periods.length < 1) {
 		return null
-	}
-
-	// Calculate interval based on number of periods
-	const getInterval = (totalPeriods: number) => {
-		if (totalPeriods <= 60) return 6 // For <= 5 years, show every 6 months
-		if (totalPeriods <= 180) return 12 // For <= 15 years, show yearly
-		return 24 // For > 15 years, show every 2 years
 	}
 
 	const interval = getInterval(periods.length)
@@ -81,38 +80,38 @@ const AmortizationGraph: React.FC<AmortizationGraphProps> = React.memo(({ period
 					}}
 				>
 					<CartesianGrid strokeDasharray="3 3" />
-					<XAxis 
-						dataKey="period" 
+					<XAxis
+						dataKey="period"
 						tick={{ fontSize: 12 }}
 					/>
-					<YAxis 
+					<YAxis
 						tickFormatter={formatYAxis}
 						tick={{ fontSize: 12 }}
 					/>
 					<Tooltip content={<CustomTooltip />} />
 					<Legend />
-					<Line 
-						type="monotone" 
-						dataKey="principalDue" 
-						stroke={colors.indigo[900]} 
+					<Line
+						type="monotone"
+						dataKey="principalDue"
+						stroke={colors.indigo[900]}
 						name={`${label} - Principal`}
 						strokeWidth={2}
 						dot={{ r: 3 }}
 						activeDot={{ r: 5 }}
 					/>
-					<Line 
-						type="monotone" 
-						dataKey="interestDue" 
-						stroke={colors.indigo[600]} 
+					<Line
+						type="monotone"
+						dataKey="interestDue"
+						stroke={colors.indigo[600]}
 						name={`${label} - Interest`}
 						strokeWidth={2}
 						dot={{ r: 3 }}
 						activeDot={{ r: 5 }}
 					/>
-					<Line 
-						type="monotone" 
-						dataKey="balance" 
-						stroke={colors.indigo[300]} 
+					<Line
+						type="monotone"
+						dataKey="balance"
+						stroke={colors.indigo[300]}
 						name={`${label} - Balance`}
 						strokeWidth={2}
 						dot={{ r: 3 }}

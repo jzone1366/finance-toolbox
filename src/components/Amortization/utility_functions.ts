@@ -19,3 +19,7 @@ export function calculateTotalPayment(rate: Decimal, numberOfPayments: number, l
 	return calculation
 }
 
+
+export function classNames(...classes: string[]) {
+	return classes.filter(Boolean).join(' ')
+}

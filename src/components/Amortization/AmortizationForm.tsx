@@ -68,7 +68,7 @@ const AmortizationForm: React.FC<AmortizationFormProps> = ({
 
 	const handleSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
-		
+
 		// Mark all fields as touched
 		setTouched({
 			amount: true,
@@ -108,7 +108,7 @@ const AmortizationForm: React.FC<AmortizationFormProps> = ({
 								{/* Loan Amount Field */}
 								<div className="sm:col-span-2">
 									<div className="relative">
-										<label htmlFor="loan-amount" 
+										<label htmlFor="loan-amount"
 											className="flex items-center text-sm font-medium leading-6 text-gray-900 mb-2">
 											<BanknotesIcon className="h-5 w-5 text-gray-400 mr-2" />
 											Loan Amount
@@ -121,10 +121,9 @@ const AmortizationForm: React.FC<AmortizationFormProps> = ({
 												prefix={"$"}
 												displayType="input"
 												placeholder="Enter amount"
-												className={`block w-full rounded-lg border-0 py-3 px-4 text-gray-900 shadow-sm ring-1 ring-inset ${
-													errors.amount ? 'ring-red-300 placeholder:text-red-300 focus:ring-red-500' 
+												className={`block w-full rounded-lg border-0 py-3 px-4 text-gray-900 shadow-sm ring-1 ring-inset ${errors.amount ? 'ring-red-300 placeholder:text-red-300 focus:ring-red-500'
 													: 'ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600'
-												} focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6`}
+													} focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6`}
 												value={amount}
 												onValueChange={handleAmountChange}
 												onBlur={() => handleBlur('amount')}
@@ -144,7 +143,7 @@ const AmortizationForm: React.FC<AmortizationFormProps> = ({
 								{/* Interest Rate Field */}
 								<div>
 									<div className="relative">
-										<label htmlFor="loan-apr" 
+										<label htmlFor="loan-apr"
 											className="flex items-center text-sm font-medium leading-6 text-gray-900 mb-2">
 											<CalculatorIcon className="h-5 w-5 text-gray-400 mr-2" />
 											Interest Rate (APR)
@@ -158,10 +157,9 @@ const AmortizationForm: React.FC<AmortizationFormProps> = ({
 												placeholder="Enter rate"
 												decimalScale={2}
 												allowNegative={false}
-												className={`block w-full rounded-lg border-0 py-3 px-4 text-gray-900 shadow-sm ring-1 ring-inset ${
-													errors.rate ? 'ring-red-300 placeholder:text-red-300 focus:ring-red-500' 
+												className={`block w-full rounded-lg border-0 py-3 px-4 text-gray-900 shadow-sm ring-1 ring-inset ${errors.rate ? 'ring-red-300 placeholder:text-red-300 focus:ring-red-500'
 													: 'ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600'
-												} focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6`}
+													} focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6`}
 												value={rate}
 												onValueChange={handleRateChange}
 												onBlur={() => handleBlur('rate')}
@@ -181,7 +179,7 @@ const AmortizationForm: React.FC<AmortizationFormProps> = ({
 								{/* Loan Term Field */}
 								<div>
 									<div className="relative">
-										<label htmlFor="loan-term" 
+										<label htmlFor="loan-term"
 											className="flex items-center text-sm font-medium leading-6 text-gray-900 mb-2">
 											<CalendarIcon className="h-5 w-5 text-gray-400 mr-2" />
 											Loan Term
@@ -194,10 +192,9 @@ const AmortizationForm: React.FC<AmortizationFormProps> = ({
 												placeholder="Years"
 												allowNegative={false}
 												decimalScale={0}
-												className={`block w-full rounded-lg border-0 py-3 px-4 text-gray-900 shadow-sm ring-1 ring-inset ${
-													errors.term ? 'ring-red-300 placeholder:text-red-300 focus:ring-red-500' 
+												className={`block w-full rounded-lg border-0 py-3 px-4 text-gray-900 shadow-sm ring-1 ring-inset ${errors.term ? 'ring-red-300 placeholder:text-red-300 focus:ring-red-500'
 													: 'ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600'
-												} focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6`}
+													} focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6`}
 												value={term}
 												onValueChange={handleTermChange}
 												onBlur={() => handleBlur('term')}
@@ -224,14 +221,13 @@ const AmortizationForm: React.FC<AmortizationFormProps> = ({
 														<span>{open ? 'Hide Optional Fields' : 'Show Optional Fields'}</span>
 													</span>
 													<ChevronUpIcon
-														className={`${
-															open ? 'rotate-180 transform' : ''
-														} h-5 w-5 text-indigo-500 transition-transform duration-200`}
+														className={`${open ? 'rotate-180 transform' : ''
+															} h-5 w-5 text-indigo-500 transition-transform duration-200`}
 													/>
 												</Disclosure.Button>
 												<Disclosure.Panel className="px-4 pb-4">
 													<div className="mt-4">
-														<label htmlFor="extra-payment" 
+														<label htmlFor="extra-payment"
 															className="flex items-center text-sm font-medium leading-6 text-gray-900 mb-2">
 															Extra Principal Payment
 														</label>

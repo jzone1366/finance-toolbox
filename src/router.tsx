@@ -1,32 +1,44 @@
-import { 
-  Router, 
-  Route,
-  RootRoute,
-  RouterProvider,
+import {
+  createRootRoute,
+  createRoute,
+  createRouter,
+  redirect,
 } from '@tanstack/react-router'
 import MainLayout from './components/Layout/MainLayout'
 import AmortizationLayout from './components/Amortization/AmortizationLayout'
 import PaycheckCalculator from './components/Paycheck/PaycheckCalculator'
+import NotFound from './components/NotFound'
+import { featureFlags } from './config/featureFlags'
 
-const rootRoute = new RootRoute({
+const rootRoute = createRootRoute({
   component: MainLayout,
 })
 
-const indexRoute = new Route({
+const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/',
   component: AmortizationLayout,
 })
 
-const paycheckRoute = new Route({
+const paycheckRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/paycheck',
+  beforeLoad: () => {
+    if (!featureFlags.showPaycheck) {
+      throw redirect({
+        to: '/',
+      })
+    }
+  },
   component: PaycheckCalculator,
 })
 
 const routeTree = rootRoute.addChildren([indexRoute, paycheckRoute])
 
-const router = new Router({ routeTree })
+const router = createRouter({
+  routeTree,
+  defaultNotFoundComponent: NotFound
+})
 
 declare module '@tanstack/react-router' {
   interface Register {
