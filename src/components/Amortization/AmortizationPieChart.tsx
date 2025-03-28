@@ -32,10 +32,6 @@ const AmortizationPieChart: React.FC<AmortizationPieChartProps> = React.memo(({ 
 
   const remainingBalance: Decimal = useMemo(() => initialLoanAmount.minus(totalAmountPaid), [initialLoanAmount, totalAmountPaid])
 
-  if (periods.length < 1) {
-    return null
-  }
-
   // Format currency for display
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('en-US', {

@@ -20,6 +20,7 @@
     "decimal.js": "^10.5.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-feature-flags": "^1.0.0",
     "react-number-format": "^5.4.3",
     "recharts": "^2.15.1",
     "tailwindcss": "^4.0.12"

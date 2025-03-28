@@ -7,17 +7,13 @@ import {
 	useReactTable,
 } from '@tanstack/react-table'
 import { useVirtualizer } from '@tanstack/react-virtual'
-import { useRef, useEffect } from 'react'
+import { useRef } from 'react'
 
 interface AmortizationTableProps {
 	periods: Period[];
 }
 
 const AmortizationTable: React.FC<AmortizationTableProps> = ({ periods }) => {
-	if (periods.length < 1) {
-		return null
-	}
-
 	const tableContainerRef = useRef<HTMLDivElement>(null)
 
 	const columnHelper = createColumnHelper<Period>()
@@ -102,10 +98,10 @@ const AmortizationTable: React.FC<AmortizationTableProps> = ({ periods }) => {
 
 	return (
 		<div className="w-full bg-white mt-4 p-2 rounded-lg shadow">
-			<div 
-				ref={tableContainerRef} 
-				className="overflow-auto" 
-				style={{ 
+			<div
+				ref={tableContainerRef}
+				className="overflow-auto"
+				style={{
 					height: '600px', // Increased from 400px
 					width: '100%'
 				}}

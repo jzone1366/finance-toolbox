@@ -4,7 +4,7 @@ import { NumberFormatValues } from "react-number-format"
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import AmortizationForm from "./AmortizationForm"
 import AmortizationTable from "./AmortizationTable"
-import { calculateInterest, calculateMonthlyRate, calculateTotalPayment } from "./utility_functions"
+import { calculateInterest, calculateMonthlyRate, calculateTotalPayment, classNames } from "./utility_functions"
 import AmortizationStats from "./AmortizationStats"
 import AmortizationGraph from "./AmortizationGraph"
 import AmortizationPieChart from "./AmortizationPieChart"
@@ -75,10 +75,6 @@ function buildAmortizationTable(loanAmount: number, apr: number, loanTerm: numbe
 	}
 
 	return periods
-}
-
-function classNames(...classes: string[]) {
-	return classes.filter(Boolean).join(' ')
 }
 
 function AmortizationLayout() {
